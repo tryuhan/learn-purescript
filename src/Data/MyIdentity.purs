@@ -36,4 +36,4 @@ instance foldableMyMaybe :: Foldable MyIdentity where
 
 instance myFunctor :: MyFunctor MyIdentity where
   fmap :: forall a b. (a -> b) -> (MyIdentity a -> MyIdentity b)
-  fmap f (MyIdentity a) = MyIdentity (f a)
+
