@@ -34,6 +34,6 @@ instance foldableMyMaybe :: Foldable MyIdentity where
   foldMap :: forall a m. Monoid m => (a -> m) -> MyIdentity a -> m
   foldMap f (MyIdentity a) = f a
 
-instance myFunctor :: MyFunctor MyIdentity where
-  fmap :: forall a b. (a -> b) -> (MyIdentity a -> MyIdentity b)
+-- instance myFunctor :: MyFunctor MyIdentity where
+--   fmap :: forall a b. (a -> b) -> (MyIdentity a -> MyIdentity b)
 
