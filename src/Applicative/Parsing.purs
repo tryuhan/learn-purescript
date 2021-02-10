@@ -50,7 +50,8 @@ type Acc
   = { lexeme :: Array Char, tokens :: Array Token }
 
 lexer :: String -> Array Token
-lexer s = (go initialAcc (toCharArray s)).tokens
+-- (go initialAcc (toCharArray s)).tokens  
+lexer s = (go initialAcc (toCharArray s)).tokens 
   where
   initialAcc :: Acc
   initialAcc = { lexeme: [], tokens: [] }
