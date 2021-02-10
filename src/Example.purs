@@ -94,8 +94,8 @@ swap' :: forall a b. Tuple a b -> Tuple b a
 swap' (Tuple x y) = Tuple y x
 
 
--- swap'' :: forall a b c. (Tuple a b -> c) -> Tuple b a -> c
-
+swap'' :: forall a b c. (Tuple a b -> c) -> Tuple b a -> c
+swap'' f (Tuple b a) = f (Tuple a b)
 
 flip' :: forall a b c. (a -> b -> c) -> b -> a -> c
 flip' f x y = f y x
