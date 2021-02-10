@@ -2,13 +2,14 @@ module Applicative.Parsing where
 
 import Prelude
 import Data.Array as A
-import Data.Array.NonEmpty (NonEmptyArray)
+import Data.Array.NonEmpty (NonEmptyArray, toArray)
 import Data.Array.NonEmpty as NE
 import Data.Char.Unicode (isSpace)
 import Data.Foldable (length)
+import Data.Int (fromString)
 import Data.Maybe (Maybe(Just, Nothing))
-import Data.Natural (Natural)
-import Data.String.CodeUnits (toCharArray)
+import Data.Natural (Natural, intToNat)
+import Data.String.CodeUnits (fromCharArray, toCharArray)
 
 -- Domain:
 type Nickname
@@ -50,8 +51,7 @@ type Acc
   = { lexeme :: Array Char, tokens :: Array Token }
 
 lexer :: String -> Array Token
--- (go initialAcc (toCharArray s)).tokens  
-lexer s = (go initialAcc (toCharArray s)).tokens 
+lexer s = (go initialAcc (toCharArray s)).tokens
   where
   initialAcc :: Acc
   initialAcc = { lexeme: [], tokens: [] }
@@ -76,11 +76,13 @@ lexer s = (go initialAcc (toCharArray s)).tokens
             Nothing -> acc'.tokens
             Just nea ->
               let
-                token =
-                  if length nea == 1 then
-                    Single (NE.head nea)
-                  else
-                    Lexeme nea
+                token = case intToNat <$> (toArray >>> fromCharArray >>> fromString) nea of
+                  Just number -> Number number
+                  Nothing ->
+                    if length nea == 1 then
+                      Single (NE.head nea)
+                    else
+                      Lexeme nea
               in
                 A.snoc acc'.tokens token
       }
