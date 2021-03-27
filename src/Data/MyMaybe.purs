@@ -4,7 +4,7 @@ import Prelude
 import Class.MyFunctor (class MyFunctor)
 import Data.Foldable (class Foldable, null)
 import Data.Generic.Rep (class Generic)
-import Data.Generic.Rep.Show (genericShow)
+import Data.Show.Generic (genericShow)
 import Helper (notImplemented)
 
 data MyMaybe a
